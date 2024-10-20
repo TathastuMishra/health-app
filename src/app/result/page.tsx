@@ -2,12 +2,13 @@
 
 import { useSearchParams } from "next/navigation"
 import { Button } from "@/components/ui/button"
+import { Suspense } from "react"
 import Link from "next/link"
 
-export default function ResultPage() {
+function Stuff() {
   const searchParams = useSearchParams()
-  const isHealthy = searchParams.get("healthy") === "true"
-  const shouldConsult = searchParams.get("consult") === "true"
+  const isHealthy = searchParams.get("isHealthy") === "true"
+  const shouldConsult = searchParams.get("shouldConsult") === "true"
 
   return (
     <div className="container mx-auto px-4 py-8">
@@ -29,5 +30,13 @@ export default function ResultPage() {
         <Button>Back to Home</Button>
       </Link>
     </div>
+  )
+}
+
+export default function ResultPage() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <Stuff />
+    </Suspense>
   )
 }
